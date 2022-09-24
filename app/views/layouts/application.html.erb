@@ -2,46 +2,87 @@
 <html>
   <head>
     <title>Bookers3</title>
+     <script src="https://kit.fontawesome.com/6d1305cf3e.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-          <%= link_to "Bookers", root_path, class: "nabar-brand" %>
-          <div class="navbar-collapse collapse show" id="navbarNavDropdown" style="">
-            <ul class="navbar-nav ml-auto">
-              <li>
-                <%= link_to root_path, class: "nav-link text-light" do %>
-                  <!-- <i class="fas fa-home"></i> Font Awesome fontawesome.com --> Home
-                <% end %>  
-              </li>
-              <li>
-                <%= link_to about_path class: "nav-link text-light" do %>
-                  <!-- <i class="fas fa-link"></i> Font Awesome fontawesome.com --> About
-                <% end %> 
-              </li>
-              <li>
-                <%= link_to new_user_registration_path class: "nav-link text-light" do %>
-                  <!-- <i class="fas fa-user-plus"></i> Font Awesome fontawesome.com --> Sign up
-                <% end %> 
-              </li>
-              <li>
-                <%= link_to new_user_session_path class: "nav-link text-light" do %>
-                  <!-- <i class="fas fa-sign-in-alt"></i> Font Awesome fontawesome.com --> Log in
-                <% end>
-              </li>
-            </ul>
+      <% if signed_in? %>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container">
+            <%= link_to "Bookers", root_path, class: "navbar-brand" %>
+            <div class="navbar-collapse collapse show" id="navbarNavDropdown" style="">
+              <ul class="navbar-nav ml-auto">
+                <li>
+                  <%= link_to user_path(current_user.id), class: "nav-link text-light" do %>
+                     <i class="fas fa-home"></i>Home
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to users_path, class: "nav-link text-light" do %>
+                    <i class="fas fa-link"></i> User
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to books_path, class: "nav-link text-light" do %>
+                    <i class="fas fa-user-plus"></i> Books
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to destroy_user_session_path, method: :delete, class: "nav-link text-light" do %>
+                    <i class="fas fa-sign-in-alt"></i>  Log out
+                  <% end %>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      <% else %>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container">
+            <%= link_to "Bookers", root_path, class: "navbar-brand" %>
+            <div class="navbar-collapse collapse show" id="navbarNavDropdown" style="">
+              <ul class="navbar-nav ml-auto">
+                <li>
+                  <%= link_to root_path, class: "nav-link text-light" do %>
+                     <i class="fas fa-home"></i>Home
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to about_path, class: "nav-link text-light" do %>
+                    <i class="fas fa-link"></i> About
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to new_user_registration_path, class: "nav-link text-light" do %>
+                    <i class="fas fa-user-plus"></i> Sign up
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to new_user_session_path, class: "nav-link text-light" do %>
+                    <i class="fas fa-sign-in-alt"></i>  Log in
+                  <% end %>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      <% end %>
     </header>
     <%= yield %>
+    <footer>
+      <div class="container mt-5">
+  	    <div class="row">
+    	    <div class="mx-auto">
+    		    <p>CopyRight Infratop.inc</p>
+    	    </div>
+         </div>
+      </div>
+    </footer>
   </body>
 </html>
