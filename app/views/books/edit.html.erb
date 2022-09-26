@@ -1,7 +1,14 @@
 <div class="row">
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
   		<h1>Editing Book</h1>
-    	
+    	<% if @book.errors.any? %>
+          <p><%= @book.errors.count %>件のエラーがあります</p>
+          <ul>
+            <% @book.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
   		<%= form_with model: @book, url: book_path(@book), method: :patch do |f| %>
   		  <%= f.label :title %><br>
   		  <%= f.text_field :title %><br>

@@ -13,15 +13,17 @@
                 <% else %>
                   <%= image_tag "no_image.jpeg" %>
                 <% end %>
-                <%= current_user.name %>
+                <%= @book.user.name %>
               <% end %>
             </th>
             <th>
               <%= link_to @book.title, book_path(@book) %>
             </th>
             <th><%= @book.body %></th>
-            <th><%= link_to "Edit", edit_book_path(@book) %></th>
-            <th><%= link_to "destroy", book_path(@book), method: :delete, data: { "confirm" => "本当に消しますか？" } %></th>
+            <% if @book.user_id == current_user.id %>
+              <th><%= link_to "Edit", edit_book_path(@book) %></th>
+              <th><%= link_to "destroy", book_path(@book), method: :delete, data: { "confirm" => "本当に消しますか？" } %></th>
+            <% end %>
           </tr>
         </tbody>
       </table>
